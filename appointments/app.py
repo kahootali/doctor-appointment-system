@@ -21,7 +21,7 @@ def getAppointments():
 @app.route('/appointment/<id>', methods=["GET"])
 def getAppointment(id):
   id = int(id) - 1
-  return jsonify({"id": appointments[id].id, "doctor": appointments[id].doctor, "date": appointments[id].date, "rating": appointments[id].rating})
+  return jsonify(appointments[id])
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0",port=7070)
