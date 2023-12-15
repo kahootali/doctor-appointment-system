@@ -1,8 +1,22 @@
 from flask import Flask, jsonify
 from flask_pymongo import PyMongo
+import os
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://mongo:27017/appointments'
+
+# Load secrets from secrets.txt
+secrets_file_path = os.path.join(os.path.dirname(__file__), 'secrets.txt')
+with open(secrets_file_path) as f:
+    lines = f.readlines()
+    for line in lines:
+        key, value = line.strip().split('=')
+        os.environ[key] = value
+
+# Print loaded environment variables
+print(os.environ)
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+
+
 mongo = PyMongo(app)
 
 @app.route('/hello')

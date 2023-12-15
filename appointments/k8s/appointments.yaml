@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointments-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appointments
+  template:
+    metadata:
+      labels:
+        app: appointments
+    spec:
+      containers:
+        - name: appointments
+          image: shahid0404/final-project-appointments:e616e71
+          ports:
+            - containerPort: 7070
+          env:
+            - name: MONGO_URL
+              value: "mongodb://mongo-service:27017/appointments"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointments-service
+spec:
+  selector:
+    app: appointments
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7070
