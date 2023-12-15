@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: doctors
-          image: shahid0404/final-project-doctors:e616e71
+          image: shahid0404/final-project-doctors:d5dcf8f
           ports:
             - containerPort: 9090
           resources:
