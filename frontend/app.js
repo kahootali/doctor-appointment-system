@@ -7,6 +7,13 @@ const HOST = '0.0.0.0';
 
 const axios = require('axios');
 
+// Read environment variables
+require('dotenv').config();
+
+const doctorsurl = process.env.DOCTORS_SERVICE_URL || 'doctors:9090';
+const appointmenturl = process.env.APPOINTMENTS_SERVICE_URL || 'appointments:7070';
+
+
 // App
 const app = express();
 app.use(express.static('public'));
@@ -21,8 +28,10 @@ app.get('/hello', (req, res) => {
 // Define your API endpoints and routes here
 app.get('/api/doctors', async (req, res) => {
   let url  = process.env.DOCTORS_SERVICE_URL;
+
+
   try {
-    const response = await axios.get(String(`http://${url}/doctors`));
+    const response = await axios.get(String(`http://${doctorsurl}/doctors`));
     const doctors = response.data;
     res.json(doctors);
   } catch (error) {
@@ -34,7 +43,7 @@ app.get('/api/doctors', async (req, res) => {
 app.get('/api/appointments', async (req, res) => {
   let url  = process.env.APPOINTMENTS_SERVICE_URL;
   try {
-    const response = await axios.get(String(`http://${url}/appointments`));
+    const response = await axios.get(String(`http://${appointmenturl}/appointments`));
     const appointments = response.data;
     res.json(appointments);
   } catch (error) {

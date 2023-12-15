@@ -1,0 +1,31 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - doctors
+      - appointments
+
+  doctors:
+    build:
+      context: ./doctors
+    ports:
+      - "9090:9090"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/doctors
+
+  appointments:
+    build:
+      context: ./appointments
+    ports:
+      - "7070:7070"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/appointments
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
