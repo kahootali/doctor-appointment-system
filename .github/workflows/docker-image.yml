@@ -1,18 +1,39 @@
-name: Docker Image CI
+name: Automating Containerization
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - dev
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - dev
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - uses: actions/checkout@v1
+    - name: Build & Push Frontend Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "shahid0404" --password-stdin 
+        FRONTEND_TAG=$(echo $GITHUB_SHA | cut -c1-7)
+        docker build -t final-project-frontend ./frontend
+        docker tag final-project-frontend shahid0404/final-project-frontend:$FRONTEND_TAG
+        docker push shahid0404/final-project-frontend:$FRONTEND_TAG
+    
+    - name: Build & Push Doctors Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "shahid0404" --password-stdin 
+        DOCTORS_TAG=$(echo $GITHUB_SHA | cut -c1-7)
+        docker build -t final-project-doctors ./doctors
+        docker tag final-project-doctors shahid0404/final-project-doctors:$DOCTORS_TAG
+        docker push shahid0404/final-project-doctors:$DOCTORS_TAG
+
+    - name: Build & Push Appointments Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "shahid0404" --password-stdin 
+        APPOINTMENTS_TAG=$(echo $GITHUB_SHA | cut -c1-7)
+        docker build -t final-project-appointments ./appointments
+        docker tag final-project-appointments shahid0404/final-project-appointments:$APPOINTMENTS_TAG
+        docker push shahid0404/final-project-appointments:$APPOINTMENTS_TAG
