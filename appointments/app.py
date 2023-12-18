@@ -18,27 +18,11 @@ def hello():
 
 if mongo.db.appointments.count_documents({}) == 0:
     sample_appointments = [
-        {
-            "id": "app1",
-            "doctor_id": "doc1",
-            "patient_id": "pat1",
-            "date": "2020-01-01",
-            "time": "10:00"
-        },
-        {
-            "id": "app2",
-            "doctor_id": "doc1",
-            "patient_id": "pat2",
-            "date": "2020-01-01",
-            "time": "11:00"
-        },
-        {
-            "id": "app3",
-            "doctor_id": "doc2",
-            "patient_id": "pat3",
-            "date": "2020-01-01",
-            "time": "12:00"
-        }
+        { 'id': "1",'doctor': "1", 'date': "21 Nov 2023", 'rating':"Good"  },
+  { 'id': "2",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
+  { 'id': "3",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
+  { 'id': "4",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
+  { 'id': "5",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
     ]
 
     # Insert sample data

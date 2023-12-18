@@ -10,16 +10,8 @@ mongo = PyMongo(app)
 
 if mongo.db.doctors.count_documents({}) == 0:
     sample_doctors = [
-        {
-            "id": "doc1",
-            "name": "Dr. John Doe",
-            "specialty": "Dentist"
-        },
-        {
-            "id": "doc2",
-            "name": "Dr. Jane Doe",
-            "specialty": "General Physician"
-        }
+       { 'id': "1",'firstName': "Muhammad Ali", 'lastName': "Kahoot", 'speciality':"DevOps"  },
+  { 'id': "2",'firstName': "Good", 'lastName': "Doctor",'speciality':"Test"  }
     ]
 
     # Insert sample data
