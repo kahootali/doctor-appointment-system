@@ -4,18 +4,16 @@ import os
 
 app = Flask(__name__)
 
-app.config['MONGO_URI'] = "mongodb://mongo-service:27017"
+app.config['MONGO_URI'] = "mongodb://mongo-service:27017/doctors"
 
 mongo = PyMongo(app)
+sample_doctors = [
+{ 'id': "1",'firstName': "Muhammad Ali", 'lastName': "Kahoot", 'speciality':"DevOps"  },
+{ 'id': "2",'firstName': "Good", 'lastName': "Doctor",'speciality':"Test"  }
+]
 
-if mongo.db.doctors.count_documents({}) == 0:
-    sample_doctors = [
-       { 'id': "1",'firstName': "Muhammad Ali", 'lastName': "Kahoot", 'speciality':"DevOps"  },
-  { 'id': "2",'firstName': "Good", 'lastName': "Doctor",'speciality':"Test"  }
-    ]
-
-    # Insert sample data
-    mongo.db.doctors.insert_many(sample_doctors)
+# Insert sample data
+mongo.db.doctors.insert_many(sample_doctors)
 
 @app.route('/hello')
 def hello():

@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 
-app.config['MONGO_URI'] = "mongodb://mongo-service:27017"
+app.config['MONGO_URI'] = "mongodb://mongo-service:27017/appointments"
 
 
 mongo = PyMongo(app)
@@ -15,18 +15,16 @@ def hello():
   greeting = "Hello world!"
   return greeting
 
+sample_appointments = [
+{ 'id': "1",'doctor': "1", 'date': "21 Nov 2023", 'rating':"Good"  },
+{ 'id': "2",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
+{ 'id': "3",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
+{ 'id': "4",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
+{ 'id': "5",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
+]
 
-if mongo.db.appointments.count_documents({}) == 0:
-    sample_appointments = [
-        { 'id': "1",'doctor': "1", 'date': "21 Nov 2023", 'rating':"Good"  },
-  { 'id': "2",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
-  { 'id': "3",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
-  { 'id': "4",'doctor': "1", 'date': "22 Nov 2023", 'rating':"Bad"  },
-  { 'id': "5",'doctor': "2", 'date': "22 Nov 2023", 'rating':"Good"  },
-    ]
-
-    # Insert sample data
-    mongo.db.appointments.insert_many(sample_appointments)
+# Insert sample data
+mongo.db.appointments.insert_many(sample_appointments)
 
 @app.route('/appointments', methods=["GET"])
 def getAppointments():
