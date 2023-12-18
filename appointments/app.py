@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 
-app.config['MONGO_URI'] = "mongodb://mongo-service:27017/appointments"
+app.config['MONGO_URI'] = "mongodb://mongo-service:27017"
 
 
 mongo = PyMongo(app)
