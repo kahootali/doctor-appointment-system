@@ -10,6 +10,8 @@ with open(secrets_file_path) as f:
         key, value = line.strip().split('=')
         os.environ[key] = value
 
+        
+
 # Print loaded environment variables
 print(os.environ)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
