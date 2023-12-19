@@ -8,6 +8,6 @@ RUN pip install flask
 
 RUN pip install flask_pymongo
 
-COPY app.py ./
+COPY . .
 
 CMD [ "python", "./app.py" ]

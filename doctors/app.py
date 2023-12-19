@@ -3,9 +3,16 @@ from flask_pymongo import PyMongo
 import os
 
 app = Flask(__name__)
+secrets_file_path = os.path.join(os.path.dirname(__file__), 'secrets.txt')
+with open(secrets_file_path) as f:
+    lines = f.readlines()
+    for line in lines:
+        key, value = line.strip().split('=')
+        os.environ[key] = value
 
-app.config['MONGO_URI'] = "mongodb://mongo-service:27017/doctors"
-
+# Print loaded environment variables
+print(os.environ)
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 if mongo.db.doctors.count_documents({}) == 0:
